@@ -75,6 +75,27 @@ static NSString *dataCallbackId = nil;
     }];
 }
 
+- (void)printTimeSlotReceipt:(CDVInvokedUrlCommand *)command {
+    StarIoExtEmulation emulation = StarIoExtEmulationStarLine;
+    ISCBBuilder *builder = [StarIoExt createCommandBuilder:emulation];
+    NSStringEncoding encoding = NSWindowsCP1252StringEncoding;
+    NSString *portName = nil;
+    NSString *content = nil;
+
+    if (command.arguments.count > 0) {
+        portName = [command.arguments objectAtIndex:0];
+        content = [command.arguments objectAtIndex:1];
+    }
+
+    [builder appendData:[content dataUsingEncoding:encoding]];
+    [builder appendQrCodeDataWithAlignment:[content dataUsingEncoding:encoding]
+                        model:SCBQrCodeModelNo2 level:SCBQrCodeLevelQ
+                        cell:6 position:SCBAlignmentPositionCenter];
+
+    [builder appendCutPaper:SCBCutPaperActionPartialCutWithFeed];
+    [self sendCommand:[builder.commands copy] portName:portName callbackId:command.callbackId];
+}
+
 - (void)printRawData:(CDVInvokedUrlCommand *)command {
     StarIoExtEmulation emulation = StarIoExtEmulationStarLine;
     ISCBBuilder *builder = [StarIoExt createCommandBuilder:emulation];
@@ -592,3 +613,4 @@ static NSString *dataCallbackId = nil;
 }
 
 @end
+   
