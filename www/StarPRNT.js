@@ -4,6 +4,9 @@ module.exports = {
     printReceipt: function (port, receipt, success, error, receiptId, alignment, international, font) {
         exec(success, error, "StarPRNT", "printData", [port, receipt, receiptId, alignment, international, font]);
     },
+    printTimeSlotReceipt: function (port, text, success, error) {
+        exec(success, error, "StarPRNT", "printTimeSlotReceipt", [port, text]);
+    },
     printData: function (port, text, success, error) {
         exec(success, error, "StarPRNT", "printRawData", [port, text]);
     },
