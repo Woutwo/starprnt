@@ -20,6 +20,7 @@
 @property (nonatomic) StarIoExtManager *starIoExtManager;
 
 - (void)portDiscovery:(CDVInvokedUrlCommand *)command;
+- (void)printTimeSlotReceipt:(CDVInvokedUrlCommand *)command;
 - (void)printData:(CDVInvokedUrlCommand *)command;
 - (void)printRawData:(CDVInvokedUrlCommand *)command;
 - (void)printReceipt:(CDVInvokedUrlCommand *)command;
